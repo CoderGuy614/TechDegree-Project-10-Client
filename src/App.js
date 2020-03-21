@@ -1,12 +1,20 @@
 import React from 'react';
 import axios from "axios";
-import Test from "./components/Courses"
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import CourseDetail from "./components/CourseDetail"
+import Courses from "./components/Courses"
 import './App.css';
+
 
 function App() {
   return (
     <div className="App">
-        <Test />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/courses/:id" component={CourseDetail} />
+          <Route path="/" component={Courses} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
