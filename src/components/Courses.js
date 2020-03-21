@@ -6,7 +6,7 @@ export default class Courses extends Component {
     state = {
         courses: []
     };
-    componentWillMount() {
+    componentDidMount() {
         axios.get('http://localhost:5000/api/courses').then(res => {
             this.setState({courses:res.data})
             })      
@@ -14,7 +14,6 @@ export default class Courses extends Component {
 
     render() {
         return (
-            
             <div id="root">
             <div>
               <div className="header">
