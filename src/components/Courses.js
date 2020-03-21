@@ -26,8 +26,8 @@ export default class Courses extends Component {
               <div className="bounds">
               {this.state.courses.map( (c,i) => {
                   return (
-                    <div className="grid-33">
-                    <Link key={c.id} to={`/courses/${c.id}`} className="course--module course--link">
+                    <div key={c.id} className="grid-33">
+                    <Link to={`/courses/${c.id}`} className="course--module course--link">
                     <h4 className="course--label">Course</h4>
                     <h3 className="course--title">{c.title}</h3>
                     </Link> 

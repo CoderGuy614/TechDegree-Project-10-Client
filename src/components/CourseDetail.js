@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import { Link } from "react-router-dom";
 import "../styles/global.css";
 
 const ReactDOM = require('react-dom')
@@ -12,7 +13,7 @@ export default class CourseDetail extends Component {
     componentDidMount() {
         axios.get(`http://localhost:5000/api/courses/${this.props.match.params.id}`).then(res => {
             this.setState({course: res.data})
-            })    
+            })      
     }
 
     render() {
@@ -28,8 +29,8 @@ export default class CourseDetail extends Component {
       <div>
         <div className="actions--bar">
           <div className="bounds">
-            <div className="grid-100"><span><a className="button" href="update-course.html">Update Course</a><a className="button" href="#">Delete Course</a></span><a
-                className="button button-secondary" href="index.html">Return to List</a></div>
+            <div className="grid-100"><span><Link className="button" to="update-course.html">Update Course</Link><Link className="button" href="#">Delete Course</Link></span><Link
+                className="button button-secondary" to="/">Return to List</Link></div>
           </div>
         </div>
         <div className="bounds course--detail">
@@ -63,7 +64,6 @@ export default class CourseDetail extends Component {
       </div>
     </div>
   </div>
-
-            )
+        )
     }
 }
