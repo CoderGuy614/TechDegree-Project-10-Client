@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import Header from "./Header"
 import "../styles/global.css";
 
 export default class Courses extends Component {
@@ -17,12 +18,7 @@ export default class Courses extends Component {
         return (
             <div id="root">
             <div>
-              <div className="header">
-                <div className="bounds">
-                  <h1 className="header--logo">Courses</h1>
-                  <nav><a className="signup" href="sign-up.html">Sign Up</a><a className="signin" href="sign-in.html">Sign In</a></nav>
-                </div>
-              </div>
+             <Header />
 
               <div className="bounds">
               {this.state.courses.map( (c,i) => {
