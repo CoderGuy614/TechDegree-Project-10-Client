@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import Header from "./Header"
 import "../styles/global.css";
 
 const ReactDOM = require('react-dom')
@@ -20,16 +21,11 @@ export default class CourseDetail extends Component {
         return (
             <div id="root">
     <div>
-      <div className="header">
-        <div className="bounds">
-          <h1 className="header--logo">Courses</h1>
-          <nav><span>Welcome Joe Smith!</span><a className="signout" href="index.html">Sign Out</a></nav>
-        </div>
-      </div>
+        <Header />
       <div>
         <div className="actions--bar">
           <div className="bounds">
-            <div className="grid-100"><span><Link className="button" to="update-course">Update Course</Link><Link className="button" to="/delete-course">Delete Course</Link></span><Link
+            <div className="grid-100"><span><Link className="button" to={`update-course/${this.state.course.id}`}>Update Course</Link><Link className="button" to={`/delete-course/${this.state.course.id}`}>Delete Course</Link></span><Link
                 className="button button-secondary" to="/">Return to List</Link></div>
           </div>
         </div>
@@ -37,6 +33,7 @@ export default class CourseDetail extends Component {
           <div className="grid-66">
             <div className="course--header">
               <h4 className="course--label">Course</h4>
+              {/* <h4 className="course--label">Course Id {this.props.match.params.id}</h4> */}
               <h3 className="course--title">{this.state.course.title}</h3>
               <p>By Sally Smith </p>
             </div>
