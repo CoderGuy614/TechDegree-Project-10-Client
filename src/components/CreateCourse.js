@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import withContext from "../Context"
+import Header from "../components/Header"
 import "../styles/global.css";
+const HeaderWithContext = withContext(Header);
+
 
 export default class CreateCourse extends Component {
     state = {
@@ -11,6 +15,7 @@ export default class CreateCourse extends Component {
         materialsNeeded: "",
         error: ""
     }
+    
 
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value})
@@ -52,16 +57,14 @@ export default class CreateCourse extends Component {
             });
         }
       };
+      
     render() {
+      const { context } = this.props;
+      const authUser = context.authenticatedUser; 
         return (
     <div id="root">
     <div>
-      <div className="header">
-        <div className="bounds">
-          <h1 className="header--logo">Courses</h1>
-          <nav><span>Welcome Joe Smith!</span><Link className="signout" to="/">Sign Out</Link></nav>
-        </div>
-      </div>
+      <HeaderWithContext/>
       <div className="bounds course--detail">
         <h1>Create Course</h1>
         <div>
@@ -76,7 +79,7 @@ export default class CreateCourse extends Component {
                 <h4 className="course--label">Course</h4>
                 <div><input onChange={this.handleChange} id="title" name="title" type="text" className="input-title course--title--input" placeholder="Course title..."
                     value={this.state.title}></input></div>
-                <p>By Joe Smith</p>
+                <p>By {`${authUser.firstName} ${authUser.lastName}`}</p>
               </div>
               <div className="course--description">
                 <div><input value={this.state.description} onChange={this.handleChange} id="description" name="description" className="" placeholder="Course description..."></input></div>

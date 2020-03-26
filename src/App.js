@@ -20,6 +20,7 @@ import './App.css';
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
+const CreateCourseWithContext = withContext(CreateCourse)
 
 
 
@@ -34,7 +35,7 @@ function App() {
         <Route path="/error" component={Error} />
         <Route path="/delete-course/:id" component={DeleteCourse} exact />
         <Route path="/courses/update-course/:id" component={UpdateCourse} exact />
-        <Route path="/create-course/" component={CreateCourse} />
+        <Route path="/create-course/" component={CreateCourseWithContext} />
         <Route path="/courses/:id" component={CourseDetail} />
         <Route path="/" component={Courses} exact/>
         
