@@ -82,6 +82,7 @@ export default class UserSignUp extends Component {
 
   submit = () => {
     const { context } = this.props;
+    console.log(context)
     const { firstName, lastName, emailAddress, password } = this.state;
     const user = {
       firstName,
@@ -97,7 +98,7 @@ export default class UserSignUp extends Component {
           this.setState({ errors });
         } else {
           context.actions.signIn(emailAddress, password).then(() => {
-            this.props.history.push("/authenticated");
+            this.props.history.push("/");
           });
         }
       })

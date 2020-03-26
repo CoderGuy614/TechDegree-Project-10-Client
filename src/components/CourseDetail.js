@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import Header from "./Header"
+import withContext from "../Context"
+import Header from "../components/Header"
+
+
 import "../styles/global.css";
+
+const HeaderWithContext = withContext(Header);
 
 const ReactDOM = require('react-dom')
 const ReactMarkdown = require('react-markdown')
@@ -21,7 +26,7 @@ export default class CourseDetail extends Component {
         return (
             <div id="root">
     <div>
-        <Header />
+        <HeaderWithContext />
       <div>
         <div className="actions--bar">
           <div className="bounds">

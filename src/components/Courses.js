@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import Header from "./Header"
 import "../styles/global.css";
+import withContext from "../Context"
+import Header from "../components/Header"
+
+const HeaderWithContext = withContext(Header);
 
 export default class Courses extends Component {
     state = {
@@ -18,7 +21,7 @@ export default class Courses extends Component {
         return (
             <div id="root">
             <div>
-             <Header />
+             <HeaderWithContext />
 
               <div className="bounds">
               {this.state.courses.map( (c,i) => {
