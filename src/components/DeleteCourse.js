@@ -3,16 +3,24 @@ import { Link } from "react-router-dom";
 import Header from "./Header"
 import "../styles/global.css";
 import axios from 'axios';
+import withContext from "../Context"
+const HeaderWithContext = withContext(Header);
 
 export default class DeleteCourse extends Component {
 
     deleteCourse(id) {
-        axios.delete(`http://localhost:5000/courses/${id}`).then(response => {console.log(response)}).catch( err => {console.log(err)})
+        axios.delete(`http://localhost:5000/api/courses/${id}`).then(response => {console.log(response.statusCode)}).catch(function (error) {
+          if (error.response) {
+            console.log(error.response.status)
+            window.location ='/Forbidden'
+        
+          }
+        });
     }
     render() {
         return (
             <>
-            <Header />
+            <HeaderWithContext />
             <div id="root">
             <div className="actions--bar">
             <div className="bounds">

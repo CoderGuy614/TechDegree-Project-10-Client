@@ -8,14 +8,17 @@ const HeaderWithContext = withContext(Header);
 
 
 export default class CreateCourse extends Component {
-    state = {
-        title: "",
-        description: "", 
-        estimatedTime: "",
-        materialsNeeded: "",
-        error: ""
+  constructor(props) {
+    super(props);
+    this.state = {
+        title: '',
+        description: '',
+        estimatedTime: '',
+        materialsNeeded: '',
+        userId: '',
+        errors: []
     }
-    
+}   
 
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value})
@@ -33,28 +36,21 @@ export default class CreateCourse extends Component {
     
       handleSubmit = e => {
         e.preventDefault();
+        const {context} = this.props
+        const authUser = context.authenticatedUser
+        const email = authUser.emailAddress
+        const pw = authUser.password
+        const newCourse = {
+          title: this.state.title,
+          description: this.state.description,
+          estimatedTime: this.state.estimatedTime,
+          materialsNeeded: this.state.materialsNeeded,
+          userId: authUser.id
+        }
         if (this.state.title === "" || this.state.description === "") {
           this.setState({ error: "Title and Description are Required" });
         } else {
-          axios
-            .post(`http://localhost:5000/api/courses`, 
-              {
-                title: this.state.title,
-                description: this.state.description,
-                materialsNeeded: this.state.materialsNeeded,
-                estimatedTime: this.state.estimatedTime
-            }
-
-
-            ,{headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}})
-            .then(res => {
-              if (res.data.error) {
-                this.setState({ error: res.data.error });
-              } else {
-               this.props.history.push("/");
-
-              }
-            });
+          context.data.createCourse(newCourse,email,pw ).then(response => {console.log(response)}).catch(err => {console.log(err)})
         }
       };
       

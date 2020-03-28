@@ -6,14 +6,15 @@ import Header from "../components/Header"
 
 
 import "../styles/global.css";
-
 const HeaderWithContext = withContext(Header);
 
 const ReactDOM = require('react-dom')
 const ReactMarkdown = require('react-markdown')
 export default class CourseDetail extends Component {
     state = {
-        course: {}
+        course: {
+          user:{}
+        }
         
     };
     componentDidMount() {
@@ -23,6 +24,12 @@ export default class CourseDetail extends Component {
     }
 
     render() {
+      const { context } = this.props;
+      const authUser = context.authenticatedUser;
+      const courseOwnerId=this.state.course.user.id
+      console.log(authUser.id)
+      
+      console.log(this.state.course.user.id)
         return (
             <div id="root">
     <div>
@@ -30,8 +37,21 @@ export default class CourseDetail extends Component {
       <div>
         <div className="actions--bar">
           <div className="bounds">
-            <div className="grid-100"><span><Link className="button" to={`update-course/${this.state.course.id}`}>Update Course</Link><Link className="button" to={`/delete-course/${this.state.course.id}`}>Delete Course</Link></span><Link
-                className="button button-secondary" to="/">Return to List</Link></div>
+            <div className="grid-100">
+            {authUser && authUser.id === courseOwnerId ? 
+            <React.Fragment>
+              <span> 
+                <Link className="button" to={`update-course/${this.state.course.id}`}>Update Course</Link>
+                <Link className="button" to={`/delete-course/${this.state.course.id}`}>Delete Course</Link>
+              </span>
+              <Link className="button button-secondary" to="/">Return to List</Link>
+            </React.Fragment> 
+            :
+            <React.Fragment>
+              <Link className="button button-secondary" to="/">Return to List</Link>
+            </React.Fragment> 
+            }
+            </div>
           </div>
         </div>
         <div className="bounds course--detail">
