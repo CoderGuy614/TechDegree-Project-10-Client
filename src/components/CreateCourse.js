@@ -49,18 +49,15 @@ export default class CreateCourse extends Component {
           this.setState({ error: "Title and Description are Required" });
         } else {
           context.data.createCourse(newCourse,email,pw )
-          .then(errors => {
-            if (errors) {
-                this.setState({ errors });
-            } else {
+          .then(result => {
+                console.log(result)
                 console.log(`User ${context.authenticatedUser.emailAddress} created this course: ${newCourse}`);
                 this.props.history.push('/');
-            }
-        })
-        .catch(err => {
+            })
+          .catch(err => {
             console.log(err)
             this.props.history.push('/error');
-        });
+          });
         }
       };
       

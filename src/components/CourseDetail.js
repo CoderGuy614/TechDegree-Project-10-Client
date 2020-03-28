@@ -8,7 +8,6 @@ import Header from "../components/Header"
 import "../styles/global.css";
 const HeaderWithContext = withContext(Header);
 
-const ReactDOM = require('react-dom')
 const ReactMarkdown = require('react-markdown')
 export default class CourseDetail extends Component {
     state = {

@@ -2,21 +2,17 @@ import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 import Header from "./Header"
 import "../styles/global.css";
-import axios from 'axios';
 import withContext from "../Context"
 const HeaderWithContext = withContext(Header);
 
 export default class DeleteCourse extends Component {
-
   deleteCourse = id => {
-   
     const {context} = this.props
     const authUser = context.authenticatedUser
     const email = authUser.emailAddress
     const pw = authUser.password
      context.data.deleteCourse(id,email,pw )
       .then(result => {
-            console.log(result)
             console.log(`Course has been successfully deleted`);
             this.props.history.push('/');
         }).catch(err => {
@@ -24,15 +20,6 @@ export default class DeleteCourse extends Component {
         this.props.history.push('/error');
     })
   }
-  // deleteCourse(id) {
-  //       axios.delete(`http://localhost:5000/api/courses/${id}`).then(response => {console.log(response.statusCode)}).catch(function (error) {
-  //         if (error.response) {
-  //           console.log(error.response.status)
-  //           // window.location ='/Forbidden'
-        
-  //         }
-  //       });
-  //   }
     render() {
         return (
             <>
