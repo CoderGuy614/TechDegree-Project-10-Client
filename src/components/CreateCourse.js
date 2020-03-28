@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from "react-router-dom";
-import axios from 'axios';
 import withContext from "../Context"
 import Header from "../components/Header"
 import "../styles/global.css";
@@ -51,6 +49,18 @@ export default class CreateCourse extends Component {
           this.setState({ error: "Title and Description are Required" });
         } else {
           context.data.createCourse(newCourse,email,pw ).then(response => {console.log(response)}).catch(err => {console.log(err)})
+          .then(errors => {
+            if (errors) {
+                this.setState({ errors });
+            } else {
+                console.log(`User ${context.authenticatedUser.emailAddress} created this course: ${newCourse}`);
+                this.props.history.push('/');
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            this.props.history.push('/error');
+        });
         }
       };
       
