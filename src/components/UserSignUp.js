@@ -80,9 +80,8 @@ export default class UserSignUp extends Component {
     });
   };
 
-  submit = async () => {
-    const { context } = await this.props;
-    console.log(context)
+  submit = () => {
+    const { context } = this.props;
     const { firstName, lastName, emailAddress, password } = this.state;
     const user = {
       firstName,

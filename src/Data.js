@@ -58,22 +58,22 @@ export default class Data {
   }
 
 //Get all courses with no authentication process
-async getCourses() {
-  const response = await this.api('/courses', 'GET');
-  if (response.status === 200) {
-    return response.json();
-  } else {
-    throw new Error();
-  }
-}
-async getCourse(courseId) {
-  const response = await this.api(`/courses/${courseId}`, 'GET');
-    if(response.status === 200){
-      return response.json();
-    }else{
-      throw new Error();
-}
-}
+// async getCourses() {
+//   const response = await this.api('/courses', 'GET');
+//   if (response.status === 200) {
+//     return response.json();
+//   } else {
+//     throw new Error();
+//   }
+// }
+// async getCourse(courseId) {
+//   const response = await this.api(`/courses/${courseId}`, 'GET');
+//     if(response.status === 200){
+//       return response.json();
+//     }else{
+//       throw new Error();
+// }
+// }
 // create new courses
 async createCourse(course, emailAddress, password){
 const response = await this.api('/courses', 'POST', course, true, { emailAddress, password });

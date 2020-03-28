@@ -48,7 +48,7 @@ export default class CreateCourse extends Component {
         if (this.state.title === "" || this.state.description === "") {
           this.setState({ error: "Title and Description are Required" });
         } else {
-          context.data.createCourse(newCourse,email,pw ).then(response => {console.log(response)}).catch(err => {console.log(err)})
+          context.data.createCourse(newCourse,email,pw )
           .then(errors => {
             if (errors) {
                 this.setState({ errors });

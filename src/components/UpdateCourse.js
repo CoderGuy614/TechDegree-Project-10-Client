@@ -31,6 +31,37 @@ export default class UpdateCourse extends Component {
         this.setState({title:"", description:"", materialsNeeded:"", estimatedTime:""})
         this.props.history.push("/");
     }
+
+
+    handleSubmit = e => {
+      e.preventDefault();
+      const {context} = this.props
+      const authUser = context.authenticatedUser
+      const email = authUser.emailAddress
+      const pw = authUser.password
+      const updatedCourse = {
+        id: this.state.course.id,
+        title: this.state.title,
+        description: this.state.description,
+        estimatedTime: this.state.estimatedTime,
+        materialsNeeded: this.state.materialsNeeded,
+        userId: authUser.id
+      }
+      if (this.state.title === "" || this.state.description === "") {
+        this.setState({ error: "Title and Description are Required" });
+      } else {
+        context.data.updateCourse(updatedCourse,email,pw )
+        .then(response => {
+          console.log(`User ${context.authenticatedUser.emailAddress} updated this course: ${updatedCourse}`);
+          this.props.history.push('/');
+      })
+      .catch(err => {
+          console.log(err)
+          this.setState({ err });
+          this.props.history.push('/error');
+      });
+      }
+    };
   
     render() {
         return (
