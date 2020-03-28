@@ -8,15 +8,31 @@ const HeaderWithContext = withContext(Header);
 
 export default class DeleteCourse extends Component {
 
-    deleteCourse(id) {
-        axios.delete(`http://localhost:5000/api/courses/${id}`).then(response => {console.log(response.statusCode)}).catch(function (error) {
-          if (error.response) {
-            console.log(error.response.status)
-            window.location ='/Forbidden'
+  deleteCourse = id => {
+   
+    const {context} = this.props
+    const authUser = context.authenticatedUser
+    const email = authUser.emailAddress
+    const pw = authUser.password
+     context.data.deleteCourse(id,email,pw )
+      .then(result => {
+            console.log(result)
+            console.log(`Course has been successfully deleted`);
+            this.props.history.push('/');
+        }).catch(err => {
+        console.log(err)
+        this.props.history.push('/error');
+    })
+  }
+  // deleteCourse(id) {
+  //       axios.delete(`http://localhost:5000/api/courses/${id}`).then(response => {console.log(response.statusCode)}).catch(function (error) {
+  //         if (error.response) {
+  //           console.log(error.response.status)
+  //           // window.location ='/Forbidden'
         
-          }
-        });
-    }
+  //         }
+  //       });
+  //   }
     render() {
         return (
             <>
@@ -38,4 +54,4 @@ export default class DeleteCourse extends Component {
           </>
         )
     }
-}
+  }
