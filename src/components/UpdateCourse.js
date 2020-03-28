@@ -17,15 +17,18 @@ export default class UpdateCourse extends Component {
             })      
     }
 
-    handleChange = ({target: {name, value}}) =>
+    handleChange = ({target: {name, value}}) => {
     this.setState(prevState => ({
         course: { ...prevState.course, [name]: value }
     }));
+  }
     
-      handleClear = e => {
-          e.preventDefault();
-        this.setState({title:"", description:"", materialsNeeded:"", estimatedTime:""})
-      }
+    handleClear = ({target: {name, value}}) => {
+      this.setState( prevState => ({
+        course: { ...prevState.course, [name]: ""}
+      }))
+    }
+
       handleCancel = e => {
         e.preventDefault();
         this.setState({title:"", description:"", materialsNeeded:"", estimatedTime:""})
@@ -96,7 +99,7 @@ export default class UpdateCourse extends Component {
                 </ul>
               </div>
             </div>
-            <div className="grid-100 pad-bottom"><button onSubmit={this.handleSubmit} className="button" type="submit">Update Course</button>
+            <div className="grid-100 pad-bottom"><button onClick={this.handleSubmit} className="button" type="submit">Update Course</button>
             <button className="button button-secondary" onClick={this.handleClear}>Clear Form</button>
             <button className="button button-secondary" onClick={this.handleCancel}>Cancel</button>
             </div>
