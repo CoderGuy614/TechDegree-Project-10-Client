@@ -9,6 +9,7 @@ const HeaderWithContext = withContext(Header);
 
 export default class UpdateCourse extends Component {
     state = {
+      errors: [],
       course: {
         user: {}
       }
@@ -25,11 +26,17 @@ export default class UpdateCourse extends Component {
     }));
   }
     
-    handleClear = ({target: {name, value}}) => {
-      this.setState( prevState => ({
-        course: { ...prevState.course, [name]: ""}
-      }))
-    }
+    handleClear = e => {
+      e.preventDefault()
+      this.setState(prevState => {
+        let course = { ...prevState.course };  
+        course.title = '';
+        course.description = '';
+        course.estimatedTime = '';
+        course.materialsNeeded = '';                                    
+        return { course };                                 
+    })
+  }
 
       handleCancel = e => {
         e.preventDefault();
@@ -46,18 +53,28 @@ export default class UpdateCourse extends Component {
       const pw = authUser.password
       const updatedCourse  = this.state.course
       if (this.state.title === "" || this.state.description === "") {
-        this.setState({ error: "Title and Description are Required" });
+        this.setState({ errors: "Title and Description are Required" });
       } else {
-        context.data.updateCourse(updatedCourse,email,pw )
+        context.data.updateCourse(updatedCourse, email, pw)
         .then(response => {
-          console.log(`User ${context.authenticatedUser.emailAddress} updated this course: ${updatedCourse}`);
-          this.props.history.push('/');
-      })
-      .catch(err => {
-          console.log(err)
-          this.setState({ err });
-          this.props.history.push('/error');
-      });
+                if(response === 204) {
+                console.log(`Course #${updatedCourse.id} has been succesfully updated!`);
+                this.props.history.push(`/courses/${updatedCourse.id}`);
+                } else {
+                  this.setState({errors: response.errors})
+                }
+            
+        })
+        .catch(err => {
+          console.log("ERROR", err)
+          if( err.status === 500) {
+            this.props.history.push('/error')
+          } else {
+            console.log(err)
+            this.props.history.push('/notfound')
+          }
+        });
+    
       }
     };
   
@@ -70,8 +87,12 @@ export default class UpdateCourse extends Component {
         <h1>Update Course</h1>
         <div>
           <div>
-          { this.state.error &&
-            <h3 className="validation-errors"> { this.state.error } </h3> }
+          { this.state.errors &&
+            <h3 className="validation-errors"> { this.state.errors.map( (err,i) => {
+              return <ul key={i}>
+                <li> {err.msg} </li>
+              </ul>
+            }) } </h3> }
             </div>
           </div>
           <form onSubmit={this.handleSubmit}>
@@ -83,7 +104,7 @@ export default class UpdateCourse extends Component {
                 <p>{this.state.course.user.firstName} {this.state.course.user.lastName}</p>
               </div>
               <div className="course--description">
-                <div><input defaultValue={this.state.course.description} onChange={this.handleChange} id="description" name="description" className=""></input></div>
+                <div><textarea defaultValue={this.state.course.description} onChange={this.handleChange} id="description" name="description" className=""></textarea></div>
               </div>
             </div>
             <div className="grid-25 grid-right">

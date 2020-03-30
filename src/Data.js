@@ -57,23 +57,6 @@ export default class Data {
     }
   }
 
-//Get all courses with no authentication process
-// async getCourses() {
-//   const response = await this.api('/courses', 'GET');
-//   if (response.status === 200) {
-//     return response.json();
-//   } else {
-//     throw new Error();
-//   }
-// }
-// async getCourse(courseId) {
-//   const response = await this.api(`/courses/${courseId}`, 'GET');
-//     if(response.status === 200){
-//       return response.json();
-//     }else{
-//       throw new Error();
-// }
-// }
 // create new courses
 async createCourse(course, emailAddress, password){
 const response = await this.api('/courses', 'POST', course, true, { emailAddress, password });
@@ -92,10 +75,9 @@ if (response.status === 201) {
 async updateCourse(course, emailAddress, password) {
 const response = await this.api(`/courses/${course.id}`, 'PUT', course, true, { emailAddress, password });
 if (response.status === 204) {
-    return [];
+    return response.status;
 } else if (response.status === 400) {
     return response.json().then(data => {
-        console.log('Error from Data.js: ', data);
         return data;
     });
 } else {

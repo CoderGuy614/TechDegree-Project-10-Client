@@ -10,6 +10,7 @@ import UserSignIn from "./components/UserSignIn"
 import UserSignOut from "./components/UserSignOut"
 import withContext from "./Context"
 import Error from "./components/Error"
+import NotFound from "./components/NotFound"
 import PrivateRoute from './PrivateRoute';
 import Forbidden from "./components/Forbidden"
 // const AuthWithContext = withContext(Authenticated);
@@ -40,6 +41,7 @@ function App() {
         <Route path="/signup" component={UserSignUpWithContext} />
         <Route path="/signout" component={UserSignOutWithContext} />
         <Route path="/error" component={Error} />
+        <Route path="/notfound" component={NotFound} />
         <Route path="/forbidden" component={ForbiddenWithContext} />
         <Route path="/delete-course/:id" component={DeleteCourseWithContext} exact />
         <PrivateRoute path="/courses/update-course/:id" component={UpdateCourseWithContext} exact />
