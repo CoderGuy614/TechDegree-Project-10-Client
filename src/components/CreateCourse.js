@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import withContext from "../Context"
 import Header from "../components/Header"
 import "../styles/global.css";
+
 const HeaderWithContext = withContext(Header);
 
 
@@ -84,7 +85,7 @@ export default class CreateCourse extends Component {
                 <p>By {`${authUser.firstName} ${authUser.lastName}`}</p>
               </div>
               <div className="course--description">
-                <div><input value={this.state.description} onChange={this.handleChange} id="description" name="description" className="" placeholder="Course description..."></input></div>
+                <div><textarea value={this.state.description} onChange={this.handleChange} id="description" name="description" className="" placeholder="Course description..."></textarea></div>
               </div>
             </div>
             <div className="grid-25 grid-right">
