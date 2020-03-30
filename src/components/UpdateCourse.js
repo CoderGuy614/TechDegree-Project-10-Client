@@ -9,7 +9,9 @@ const HeaderWithContext = withContext(Header);
 
 export default class UpdateCourse extends Component {
     state = {
-      course: {}
+      course: {
+        user: {}
+      }
     }
     componentDidMount() {
         axios.get(`http://localhost:5000/api/courses/${this.props.match.params.id}`).then(res => {
@@ -78,7 +80,7 @@ export default class UpdateCourse extends Component {
                 <h4 className="course--label">Course</h4>
                 <div><input defaultValue={this.state.course.title} onChange={this.handleChange.bind(this)} id="title" name="title" type="text" className="input-title course--title--input"
                     ></input></div>
-                <p>By Joe Smith</p>
+                <p>{this.state.course.user.firstName} {this.state.course.user.lastName}</p>
               </div>
               <div className="course--description">
                 <div><input defaultValue={this.state.course.description} onChange={this.handleChange} id="description" name="description" className=""></input></div>
