@@ -56,7 +56,7 @@ export default class CourseDetail extends Component {
               <h4 className="course--label">Course</h4>
               {/* <h4 className="course--label">Course Id {this.props.match.params.id}</h4> */}
               <h3 className="course--title">{this.state.course.title}</h3>
-              <p>By Sally Smith </p>
+              <p>By {this.state.course.user.firstName} {this.state.course.user.lastName} </p>
             </div>
             <div className="course--description">
               <p>{this.state.course.description}</p>
