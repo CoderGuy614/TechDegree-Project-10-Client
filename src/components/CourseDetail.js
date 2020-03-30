@@ -26,9 +26,6 @@ export default class CourseDetail extends Component {
       const { context } = this.props;
       const authUser = context.authenticatedUser;
       const courseOwnerId=this.state.course.user.id
-      console.log(authUser.id)
-      
-      console.log(this.state.course.user.id)
         return (
             <div id="root">
     <div>

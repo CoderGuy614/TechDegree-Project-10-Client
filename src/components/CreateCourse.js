@@ -50,7 +50,6 @@ export default class CreateCourse extends Component {
         } else {
           context.data.createCourse(newCourse,email,pw )
           .then(result => {
-                console.log(result)
                 console.log(`User ${context.authenticatedUser.emailAddress} created this course: ${newCourse}`);
                 this.props.history.push('/');
             })

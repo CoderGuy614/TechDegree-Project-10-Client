@@ -42,7 +42,7 @@ export default class UpdateCourse extends Component {
       const authUser = context.authenticatedUser
       const email = authUser.emailAddress
       const pw = authUser.password
-      const {updatedCourse}  = this.state.course
+      const updatedCourse  = this.state.course
       if (this.state.title === "" || this.state.description === "") {
         this.setState({ error: "Title and Description are Required" });
       } else {
@@ -99,7 +99,7 @@ export default class UpdateCourse extends Component {
                 </ul>
               </div>
             </div>
-            <div className="grid-100 pad-bottom"><button onClick={this.handleSubmit} className="button" type="submit">Update Course</button>
+            <div className="grid-100 pad-bottom"><button onSubmit={this.handleSubmit} className="button" type="submit">Update Course</button>
             <button className="button button-secondary" onClick={this.handleClear}>Clear Form</button>
             <button className="button button-secondary" onClick={this.handleCancel}>Cancel</button>
             </div>
