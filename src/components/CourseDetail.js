@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import withContext from "../Context"
 import Header from "../components/Header"
 
@@ -11,18 +11,26 @@ const HeaderWithContext = withContext(Header);
 const ReactMarkdown = require('react-markdown')
 export default class CourseDetail extends Component {
     state = {
+        redirect: false, 
         course: {
           user:{}
         }
         
     };
     componentDidMount() {
-        axios.get(`http://localhost:5000/api/courses/${this.props.match.params.id}`).then(res => {
-            this.setState({course: res.data})
+        axios.get(`http://localhost:5000/api/courses/${this.props.match.params.id}`).then(course => {
+          if(course.data){
+            this.setState({course: course.data})
+          } else {
+            this.setState({redirect:true})
+          }
             })      
     }
 
     render() {
+      if(this.state.redirect){
+        return <Redirect to ="/notfound" />
+      } else {
       const { context } = this.props;
       const authUser = context.authenticatedUser;
       const courseOwnerId=this.state.course.user.id
@@ -84,4 +92,5 @@ export default class CourseDetail extends Component {
   </div>
         )
     }
+  }
 }
