@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import withContext from "../Context"
 import Header from "../components/Header"
 import "../styles/global.css";
-
+//Importing the header with context to render the current user
 const HeaderWithContext = withContext(Header);
-
-
+// Defining and exporting the class component
 export default class CreateCourse extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +17,7 @@ export default class CreateCourse extends Component {
         errors: []
     }
 }   
-
+  // Functions to handle inputs to the form 
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value})
       };
@@ -32,7 +31,7 @@ export default class CreateCourse extends Component {
         this.setState({title:"", description:"", materialsNeeded:"", estimatedTime:""})
         this.props.history.push("/");
     }
-    
+    // Sumbitting the form checks that the user is logged in and sends a post request to the API via the createCourse context function
       handleSubmit = e => {
         e.preventDefault();
         const {context} = this.props
@@ -46,7 +45,7 @@ export default class CreateCourse extends Component {
           materialsNeeded: this.state.materialsNeeded,
           userId: authUser.id
         }
-
+        // Utilize context to access the createCourse function
           context.data.createCourse(newCourse,email,pw )
           .then(response => {
             if(response === 201){

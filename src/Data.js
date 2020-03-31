@@ -1,5 +1,5 @@
 import config from "./config";
-
+// Data component containes async functions used to send requests to the API, and handle the different responses
 export default class Data {
   api(
     path,
@@ -99,6 +99,4 @@ if (response.status === 403) {
     throw new Error();
 }
 }    
-
-
 }

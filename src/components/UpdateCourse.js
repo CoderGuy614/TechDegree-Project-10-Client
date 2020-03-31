@@ -3,11 +3,10 @@ import axios from "axios"
 import { Redirect } from "react-router-dom";
 import withContext from "../Context"
 import Header from "../components/Header"
-
-
 import "../styles/global.css";
+//Importing the header with context to render the current user
 const HeaderWithContext = withContext(Header);
-
+// Defining and exporting the class component
 export default class UpdateCourse extends Component {
     state = {
       redirect: false,

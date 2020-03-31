@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-
+// Stateless functional component that displays text content depending on if a user is logged in or not
 export default function Header(props) {
   const { context } = props;
   const authUser = context.authenticatedUser;

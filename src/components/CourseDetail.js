@@ -8,7 +8,9 @@ import Header from "../components/Header"
 import "../styles/global.css";
 const HeaderWithContext = withContext(Header);
 
+// Utilize React MarkDown to handle markdown input in the materialsNeeded field
 const ReactMarkdown = require('react-markdown')
+// Defining and exporting the class component
 export default class CourseDetail extends Component {
     state = {
         redirect: false, 
@@ -17,6 +19,7 @@ export default class CourseDetail extends Component {
         }
         
     };
+// When the component loads, get the course that matches the id in the url params and set it's data into the state
     componentDidMount() {
         axios.get(`http://localhost:5000/api/courses/${this.props.match.params.id}`).then(course => {
           if(course.data){
@@ -26,7 +29,7 @@ export default class CourseDetail extends Component {
           }
             })      
     }
-
+//If a user tries to navigate to a non-existent courser route, redirect them to the 404 Not Found Page.
     render() {
       if(this.state.redirect){
         return <Redirect to ="/notfound" />
@@ -36,12 +39,13 @@ export default class CourseDetail extends Component {
       const courseOwnerId=this.state.course.user.id
         return (
             <div id="root">
-    <div>
+      <div>
         <HeaderWithContext />
       <div>
         <div className="actions--bar">
           <div className="bounds">
             <div className="grid-100">
+            {/* Conditionally render the update and delete buttons depending on the current user and course owner. */}
             {authUser && authUser.id === courseOwnerId ? 
             <React.Fragment>
               <span> 
@@ -62,7 +66,6 @@ export default class CourseDetail extends Component {
           <div className="grid-66">
             <div className="course--header">
               <h4 className="course--label">Course</h4>
-              {/* <h4 className="course--label">Course Id {this.props.match.params.id}</h4> */}
               <h3 className="course--title">{this.state.course.title}</h3>
               <p>By {this.state.course.user.firstName} {this.state.course.user.lastName} </p>
             </div>
@@ -80,6 +83,7 @@ export default class CourseDetail extends Component {
                 <li className="course--stats--list--item">
                   <h4>Materials Needed</h4>
                   <ul>
+                  {/* Support for markdown input in this field */}
                     <ReactMarkdown source={this.state.course.materialsNeeded} />
                   </ul>
                 </li>

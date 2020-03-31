@@ -1,5 +1,5 @@
 import React from 'react';
-
+// Helper functions for the form component
 export default (props) => {
   const {
     cancel,

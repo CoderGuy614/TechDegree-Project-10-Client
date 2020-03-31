@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { Consumer } from "./Context";
-
+//Higher Order Component HOC used to protect specific routes that require user authorization
 export default ({ component: Component, ...rest }) => {
   return (
     <Consumer>

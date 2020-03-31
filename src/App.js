@@ -1,3 +1,5 @@
+//TreeHouse TechDegree Project 10 By Jonathan Lutz - March 2020
+//Import components to app
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import CourseDetail from "./components/CourseDetail"
@@ -13,13 +15,9 @@ import UnhandledError from "./components/UnhandledError"
 import NotFound from "./components/NotFound"
 import PrivateRoute from './PrivateRoute';
 import Forbidden from "./components/Forbidden"
-// const AuthWithContext = withContext(Authenticated);
-
-
-
+// import css
 import './App.css';
-
-
+// Add context to components that require it
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
@@ -30,8 +28,7 @@ const ForbiddenWithContext = withContext(Forbidden)
 const CoursesWithContext = withContext(Courses)
 const UpdateCourseWithContext = withContext(UpdateCourse)
 
-
-
+// Routing for all components
 function App() {
   return (
     <div className="App">
