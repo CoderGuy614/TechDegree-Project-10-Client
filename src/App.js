@@ -48,7 +48,7 @@ function App() {
         <PrivateRoute path="/create-course/" component={CreateCourseWithContext} />
         <Route path="/courses/:id" component={CourseDetailWithContext} />
         <Route path="/" component={CoursesWithContext} exact/>
-        
+        <Route component={NotFound} />
         </Switch>
       </BrowserRouter>
     </div>
