@@ -74,7 +74,9 @@ if (response.status === 201) {
 //update courses
 async updateCourse(course, emailAddress, password) {
 const response = await this.api(`/courses/${course.id}`, 'PUT', course, true, { emailAddress, password });
-if (response.status === 204) {
+if(response.status === 403) {
+  return response.status
+} else if (response.status === 204) {
     return response.status;
 } else if (response.status === 400) {
     return response.json().then(data => {

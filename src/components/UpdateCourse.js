@@ -63,24 +63,23 @@ export default class UpdateCourse extends Component {
       } else {
         context.data.updateCourse(updatedCourse, email, pw)
         .then(response => {
-                if(response === 204) {
+                if(response === 403){
+                  this.props.history.push("/forbidden")
+                } else if(response === 204) {
                 console.log(`Course #${updatedCourse.id} has been succesfully updated!`);
                 this.props.history.push(`/courses/${updatedCourse.id}`);
                 } else {
                   this.setState({errors: response.errors})
                 }
-            
         })
         .catch(err => {
-          console.log("ERROR", err)
+          console.log(err)
           if( err.status === 500) {
             this.props.history.push('/error')
           } else {
-            console.log(err)
             this.props.history.push('/notfound')
           }
         });
-    
       }
     };
   

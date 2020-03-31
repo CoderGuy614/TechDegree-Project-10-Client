@@ -1,13 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 import withContext from "../Context"
-import Header from "../components/Header"
+import Header from "./Header"
 const HeaderWithContext = withContext(Header);
 
-export default class Error extends Component {
-    render() {
+export default function UnhandledError() {
         return (
             <div id="root">
-            <div>
+                <div>
                   <HeaderWithContext />
                 </div>
                 <h1>Error</h1>
@@ -16,5 +15,4 @@ export default class Error extends Component {
          
          
         )
-    }
 }
