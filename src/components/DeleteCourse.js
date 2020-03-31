@@ -12,9 +12,12 @@ export default class DeleteCourse extends Component {
     const email = authUser.emailAddress
     const pw = authUser.password
      context.data.deleteCourse(id,email,pw )
-      .then(result => {
-            console.log(`Course has been successfully deleted`);
+      .then(response => {
+        if(response === 403){
+          this.props.history.push("/forbidden")
+        } else if(response === 204) {
             this.props.history.push('/');
+        }
         }).catch(err => {
         console.log(err)
         this.props.history.push('/error');

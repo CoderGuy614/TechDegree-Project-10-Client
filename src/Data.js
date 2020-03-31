@@ -89,7 +89,9 @@ if(response.status === 403) {
 //delete courses
 async deleteCourse(courseId, emailAddress, password) {
 const response = await this.api(`/courses/${courseId}`, 'DELETE', null, true, { emailAddress, password });
-if (response.status === 204) {
+if (response.status === 403) {
+  return response.status
+} else if (response.status === 204) {
     return response.status
 } else if (response.status === 401) {
     return response.json().then(data => data);
