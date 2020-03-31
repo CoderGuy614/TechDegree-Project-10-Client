@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from "axios"
+import { Redirect } from "react-router-dom";
 import withContext from "../Context"
 import Header from "../components/Header"
 
@@ -9,16 +10,21 @@ const HeaderWithContext = withContext(Header);
 
 export default class UpdateCourse extends Component {
     state = {
+      redirect: false,
       errors: [],
       course: {
         user: {}
       }
     }
     componentDidMount() {
-        axios.get(`http://localhost:5000/api/courses/${this.props.match.params.id}`).then(res => {
-            this.setState({course: res.data})
-            })      
-    }
+      axios.get(`http://localhost:5000/api/courses/${this.props.match.params.id}`).then(course => {
+        if(course.data){
+          this.setState({course: course.data})
+        } else {
+          this.setState({redirect:true})
+        }
+          })      
+  }
 
     handleChange = ({target: {name, value}}) => {
     this.setState(prevState => ({
@@ -79,6 +85,9 @@ export default class UpdateCourse extends Component {
     };
   
     render() {
+      if(this.state.redirect){
+        return <Redirect to ="/notfound" />
+      } else {
         return (
     <div id="root">
     <div>
@@ -134,4 +143,5 @@ export default class UpdateCourse extends Component {
   
         )
     }
+  }
 }

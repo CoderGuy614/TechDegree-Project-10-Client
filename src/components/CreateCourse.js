@@ -46,19 +46,21 @@ export default class CreateCourse extends Component {
           materialsNeeded: this.state.materialsNeeded,
           userId: authUser.id
         }
-        if (this.state.title === "" || this.state.description === "") {
-          this.setState({ error: "Title and Description are Required" });
-        } else {
+
           context.data.createCourse(newCourse,email,pw )
-          .then(result => {
+          .then(response => {
+            if(response === 201){
                 console.log(`User ${context.authenticatedUser.emailAddress} created this course: ${newCourse}`);
                 this.props.history.push('/');
+            } else {
+              this.setState({errors: response})
+            }
             })
           .catch(err => {
             console.log(err)
             this.props.history.push('/error');
           });
-        }
+        
       };
       
     render() {
@@ -72,8 +74,12 @@ export default class CreateCourse extends Component {
         <h1>Create Course</h1>
         <div>
           <div>
-          { this.state.error &&
-            <h3 className="validation-errors"> { this.state.error } </h3> }
+          { this.state.errors &&
+            <h3 className="validation-errors"> { this.state.errors.map( (err,i) => {
+              return <ul key={i}>
+                    <li> {err.msg} </li> 
+              </ul>
+            }) } </h3> }
             </div>
           </div>
           <form onSubmit={this.handleSubmit}>
